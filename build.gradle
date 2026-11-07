@@ -1,0 +1,36 @@
+plugins {
+    // 26.1 이상(난독화 없음)은 이 플러그인 ID를 씁니다. 매핑 설정 불필요(Mojang 공식 이름)
+    id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand 'version': project.version }
+}
+
+// 폴더 없이 파일 전부를 저장소 맨 위에 두는 구조 (src 폴더 불필요)
+sourceSets {
+    main {
+        java { srcDirs = ['.']; include '*.java' }
+        resources { srcDirs = ['.']; include 'fabric.mod.json' }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { it.options.release = 25 }
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}

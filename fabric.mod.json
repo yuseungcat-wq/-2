@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "bazaar_hint",
+  "version": "${version}",
+  "name": "Bazaar Hint",
+  "description": "바자 추천 품목 표시, 사야 할 품목 강조, 주문 앞지름 알림(채팅 버튼). 자동 클릭/구매/주문 변경 기능은 없습니다.",
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.bazaarhint.BazaarHintClient"] },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
